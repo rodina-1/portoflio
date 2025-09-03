@@ -74,11 +74,46 @@
     .timeline-item .date { display:block; color:var(--muted); font-size:0.9rem }
 
     /* Certificates carousel */
-    .certs-wrap{position:relative;margin-top:12px}
-    .cert-slider{display:flex;gap:12px;overflow:hidden;padding:8px}
-    .cert-item{min-width:300px;flex:0 0 300px;background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.03)}
-    .cert-controls{position:absolute;right:8px;top:8px;display:flex;gap:8px}
-    .cert-arrow{background:rgba(0,0,0,.35);border:none;color:#fff;padding:8px;border-radius:8px;cursor:pointer}
+    .certs-wrap {
+  position: relative;
+  margin-top: 12px;
+  overflow: hidden;   /* ✨ خلي القص هنا مش في .cert-slider */
+  padding: 8px;
+}
+
+.cert-slider {
+  display: flex;
+  gap: 12px;
+  transition: transform 0.45s cubic-bezier(.2,.9,.2,1);
+  /* overflow: hidden;  ❌ امسحي السطر ده */
+}
+
+.cert-item {
+  min-width: 300px;
+  flex: 0 0 300px;
+  background: var(--card);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.03);
+}
+
+.cert-controls {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.cert-arrow {
+  background: rgba(0,0,0,.35);
+  border: none;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 
     /* Contact */
     form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -614,3 +649,4 @@
   </script>
 </body>
 </html>
+
