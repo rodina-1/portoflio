@@ -85,8 +85,9 @@
   display: flex;
   gap: 12px;
   transition: transform 0.45s cubic-bezier(.2,.9,.2,1);
-  /* overflow: hidden;  ❌ امسحي السطر ده */
+  direction: ltr; /* ✨ دا بيخلي الحركة زي ما هي حتى في الصفحات العربي */
 }
+
 
 .cert-item {
   min-width: 300px;
@@ -663,3 +664,4 @@ certPrev.addEventListener('click', () => {
   </script>
 </body>
 </html>
+
