@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rodina Hesham — Portfolio</title>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    /* ---------- base (keeps the simple / familiar look) ---------- */
+   :root{
+  --bg:#f7f9fc; --text:#222; --card:#ffffff; --muted:#666;
+  --primary:#1c3d6e; --accent:#4da6ff; --radius:10px;
+}
+body.dark{ 
+  --bg:#061223; 
+  --text:#eaeff6; 
+  --card:#102033; 
+  --muted:#9fb3d6; 
+  --accent:#76b7ff; 
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+
+/* Button */
+.btn{
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition: all 0.3s ease;
+  display:inline-block;
+  margin:6px;
+}
+body.light .btn{
+  background: linear-gradient(45deg,#ff9a9e,#fad0c4);
+  color:#00233a;
+}
+body.dark .btn{
+  background: linear-gradient(45deg,#76b7ff,#1c3d6e);
+  color:#fff;
+}
+.btn:hover{
+  transform: translateY(-3px);
+  box-shadow:0 6px 16px rgba(0,0,0,0.2);
+  background-position: right center;
+}
+
+/* Navbar */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:var(--primary);
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 24px;
+  z-index:1000;
+}
+nav ul{display:flex;gap:12px;align-items:center;margin:0;padding:0;list-style:none}
+nav a, nav button {color:#fff;border:none;background:none;cursor:pointer;padding:8px 10px;border-radius:8px}
+nav a:hover, nav button:hover{background:rgba(255,255,255,0.08)}
+
+/* Hero */
+header.hero{
+  height:80vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px 16px;
+  background:linear-gradient(90deg,var(--primary),#1c3d6e);
+  color:#fff;
+}
+header.hero img{
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,0.18);
+  margin-bottom:14px;
+  transition: transform 0.6s ease;
+}
+header.hero img:hover {
+  transform: scale(1.08) rotate(3deg);
+}
+header.hero h1{
+  animation: fadeInUp 1s ease forwards;
+}
+@keyframes fadeInUp{
+  0%{opacity:0;transform:translateY(20px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+header.hero p{
+  max-width:760px;
+  margin:8px 0 16px;
+  color:rgba(255,255,255,0.9);
+}
+
+/* Main / Sections */
+main{max-width:1100px;margin:28px auto;padding:12px}
+section{padding:32px 0;border-radius:6px}
+h2{margin:0 0 12px;font-size:22px;color:var(--primary)}
+.muted{color:var(--muted)}
+
+/* Grid / Cards */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{
+  background:var(--card);
+  padding:16px;
+  border-radius:var(--radius);
+  box-shadow:0 6px 18px rgba(2,6,23,0.06);
+  transition:transform .35s,box-shadow .35s;
+}
+.card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 12px 24px rgba(0,0,0,0.15);
+}
+.card img{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+
+/* Responsive */
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)} header.hero{height:70vh}}
+@media(max-width:640px){.grid{grid-template-columns:1fr} header.hero img{width:120px;height:120px} nav{padding:10px}}
+
+/* Skills / Stats / Pills / Timeline / Testimonials */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.skill-card{padding:16px;border-radius:8px;background:var(--card);text-align:center}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{padding:18px;border-radius:8px;text-align:center;background:var(--card)}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,0.04);margin-right:6px;margin-top:8px;font-size:13px;color:var(--muted)}
+.timeline{border-left:3px solid var(--primary);padding-left:14px}
+.timeline-item{margin-bottom:14px;padding-left:8px}
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.testimonial{padding:14px;border-radius:8px;background:var(--card);text-align:center}
+
+/* Contact */
+.contact-form{max-width:600px;margin:auto;display:flex;flex-direction:column;gap:15px}
+.contact-form input,.contact-form textarea{padding:10px;border:1px solid #ccc;border-radius:5px;font-size:16px}
+.contact-form button{padding:10px;background:#0a1f44;color:#fff;border:none;border-radius:5px;cursor:pointer;transition:0.3s}
+.contact-form button:hover{background:#1c3d6e;transform:scale(1.05)}
+.socials{text-align:center;margin-top:20px}
+.socials a{margin:0 10px;font-size:20px;color:#0a1f44}
+
+/* Modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:1500;padding:18px}
+.modal .modal-card{width:100%;max-width:900px;background:var(--card);padding:16px;border-radius:8px}
+.close-x{background:none;border:none;font-size:22px;float:right;cursor:pointer}
+
+/* Footer */
+footer{padding:16px;text-align:center;color:var(--muted);margin-top:18px}
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo" id="brand" data-en="My Portfolio" data-ar="بورتفوليو">My Portfolio</div>
+
+    <ul>
+      <li><a href="#about" data-en="About" data-ar="عنّي">About</a></li>
+      <li><a href="#skills" data-en="Skills" data-ar="المهارات">Skills</a></li>
+      <li><a href="#stats" data-en="Stats" data-ar="الإحصائيات">Stats</a></li>
+      <li><a href="#projects" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+      <li><a href="#certs" data-en="Certificates" data-ar="الشهادات">Certificates</a></li>
+      <li><a href="#achievements" data-en="Achievements" data-ar="الإنجازات">Achievements</a></li>
+      <li><a href="#timeline" data-en="Timeline" data-ar="الخط الزمني">Timeline</a></li>
+      <li><a href="#testimonials" data-en="Testimonials" data-ar="التوصيات">Testimonials</a></li>
+      <li><a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a></li>
+
+      <!-- toggles -->
+      <li>
+        <div class="right">
+          <button id="langToggle" title="Toggle language">🌍</button>
+          <button id="themeToggle" title="Toggle theme">🌙</button>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<div id="particles-js"></div>
+<script>
+particlesJS('particles-js', {
+  particles: { number: { value: 50 }, color: { value: "#ffffff" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 2 } }
+});
+</script>
+<style>
+#particles-js { position:absolute; width:100%; height:100%; top:0; left:0; z-index:0; }
+header.hero > * { position: relative; z-index: 1; }
+</style>
+
+  <header class="hero" data-aos="fade-up">
+    <img src="me.jpg" alt="Rodina">
+    <h1 data-en="Rodina Hesham" data-ar="ردينا هشام">Rodina Hesham</h1>
+    <p data-en="Networking & Cybersecurity Engineer — design, build & secure networks"
+       data-ar="مهندسة شبكات وأمن سيبراني — تصميم وبناء وتأمين الشبكات">
+      Networking & Cybersecurity Student — design, build & secure networks
+    </p>
+    <div>
+      <a class="btn" id="cvBtn" href="cv.pdf" target="_blank" data-en="Download CV" data-ar="تحميل السيرة الذاتية">Download CV</a>
+      <a class="btn" href="#contact" data-en="Contact Me" data-ar="تواصل معي">Contact Me</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- About -->
+  <section id="about" class="about" data-aos="fade-up">
+    <h2 data-en="About Me" data-ar="عني">About Me</h2>
+    <p id="about-text" data-en="I am a dedicated Networking and Cybersecurity student with strong knowledge in designing, configuring, and managing networks. My unique value lies in combining technical skills with practical problem-solving to create secure and efficient network solutions, supported by academic projects and certifications."
+       data-ar="أنا طالبة متخصصة في الشبكات والأمن السيبراني، أمتلك معرفة قوية في تصميم وإعداد وإدارة
+الشبكات. أتميز بقدرتي على دمج المهارات التقنية مع حل المشكلات بشكل عملي لتقديم حلول
+شبكية آمنة وفعالة، مدعومة بالمشروعات الأكاديمية والشهادات .">
+       I am a Networking & Cybersecurity student passionate about designing, building, and troubleshooting networks.
+    </p>
+  </section>
+
+    <!-- SKILLS -->
+    <section id="skills" data-aos="fade-up">
+      <h2 data-en="Skills" data-ar="المهارات">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card" data-aos="zoom-in">
+          <h3 data-en="Networking" data-ar="الشبكات">Networking</h3>
+          <p data-en="Routing · Switching · VLANs · Subnetting" data-ar="Routing · Switching · VLANs · Subnetting">Routing · Switching · VLANs · Subnetting</p>
+        </div>
+        <div class="skill-card" data-aos="zoom-in" data-aos-delay="80">
+          <h3 data-en="Cybersecurity" data-ar="الأمن السيبراني">Cybersecurity</h3>
+          <p data-en="Firewalls · Packet Analysis · Security Basics" data-ar="Firewalls · تحليل الحزم · أسس الأمان">Firewalls · Packet Analysis · Security Basics</p>
+        </div>
+        <div class="skill-card" data-aos="zoom-in" data-aos-delay="160">
+          <h3 data-en="Tools" data-ar="الأدوات">Tools</h3>
+          <p data-en="Cisco PT · Wireshark · Linux · Fortinet · VMware" data-ar="Cisco PT · Wireshark · Linux · Fortinet · GNS3">Cisco PT · Wireshark · Linux · Fortinet · GNS3</p>
+        </div>
+      </div>
+    </section>
+       <!-- ==== EXPERIENCE ==== -->
+      <section id="experience" class="fade" style="margin-top:18px">
+        <h3 class="title" id="expTitle">Experience</h3>
+        <div class="card timeline">
+          <div class="timeline-item">
+            <h4 id="exp1Title">Fortinet Cybersecurity Engineer Training</h4>
+            <span class="place" id="exp1Place">Digital Egypt Pioneers Initiative (DEPI)</span>
+            <span class="date" id="exp1Date">2025 – Ongoing</span>
+          </div>
+          <div class="timeline-item">
+            <h4 id="exp2Title">Internship – CIB Bank</h4>
+            <span class="place" id="exp2Place">Cybersecurity</span>
+            <span class="date" id="exp2Date">2024</span>
+          </div>
+        </div>
+      </section>
+
+    <!-- STATS -->
+    <section id="stats" data-aos="fade-up">
+      <h2 data-en="Stats" data-ar="الإحصائيات">Stats</h2>
+      <div class="stats-grid">
+        <div class="stat card" data-aos="fade-up"><h3 class="counter" data-target="6 ">0</h3><p data-en="Projects Completed" data-ar="مشروع كامل">Projects Completed</p></div>
+        <div class="stat card" data-aos="fade-up" data-aos-delay="80"><h3 class="counter" data-target="+6 ">0</h3><p data-en="Certificates Earned" data-ar="شهادة">Certificates Earned</p></div>
+        <div class="stat card" data-aos="fade-up" data-aos-delay="160"><h3 class="counter" data-target="2">0</h3><p data-en="Internships / Trainings" data-ar="تدريب">Internships / Trainings</p></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+<section id="projects" data-aos="fade-up">
+  <h2 data-en="Projects" data-ar="المشاريع">Projects</h2>
+  <div class="grid">
+
+    <!-- Project 1: Weather Prediction App -->
+    <div class="card project cert" data-proj='{
+      "title":"Weather Prediction App",
+      "title_ar":"تطبيق التنبؤ بالطقس",
+      "desc":"Exploratory Data Analysis on weather datasets.",
+      "desc_ar":"تحليل استكشافي للبيانات الخاصة بالطقس.",
+      "details":"Collected weather data, cleaned and explored patterns, implemented prediction models using Python libraries. Visualized trends and created interactive dashboards.",
+      "details_ar":"تم جمع بيانات الطقس، تنظيفها وتحليل الأنماط، تنفيذ نماذج التنبؤ باستخدام مكتبات Python وعرض النتائج بطريقة تفاعلية.",
+      "tags":["Python","Pandas","Prediction"],
+      "tags_ar":["Python","Pandas","التنبؤ"],
+      "images":["neww.png"],
+      "video":"DA.mp4"
+    }'>
+      <img src="neww.png" alt="Weather Prediction App Thumbnail">
+      <h3 data-en="Weather Prediction App" data-ar="تطبيق التنبؤ بالطقس">Weather Prediction App</h3>
+      <p class="muted" data-en="Exploratory Data Analysis" data-ar="تحليل استكشافي للبيانات">Exploratory Data Analysis</p>
+      <div style="margin-top:10px">
+        <button class="btn" onclick="openVideo(this)">View Video</button>
+        <button class="btn" onclick="openProjectModal(this)">View Details</button>
+      </div>
+    </div>
+
+    <!-- Project 2: Machine Learning Model -->
+    <div class="card project cert" data-proj='{
+      "title":"Machine Learning Model",
+      "title_ar":"مشروع تعلم الآلة",
+      "desc":"A machine learning project where I built and trained a predictive model.",
+      "desc_ar":"مشروع تعلم آلي قمت فيه ببناء وتدريب نموذج للتنبؤ وتحليل الأنماط.",
+      "details":"Built a predictive ML model using scikit-learn, trained on dataset X, tested for accuracy, visualized results, and improved performance with feature engineering.",
+      "details_ar":"تم بناء نموذج تعلم آلي باستخدام scikit-learn، تدريبه على مجموعة البيانات X، اختبار الدقة، عرض النتائج وتحسين الأداء باستخدام هندسة الميزات.",
+      "tags":["Python","Machine Learning","scikit-learn"],
+      "tags_ar":["Python","تعلم الآلة","scikit-learn"],
+      "images":["mp.png"]
+    }'>
+      <img src="mp.png" alt="Machine Learning Model">
+      <div class="proj-body">
+        <h3 data-en="Machine Learning Model" data-ar="مشروع تعلم الآلة">Machine Learning Model</h3>
+        <p class="muted" data-en="A machine learning project where I built and trained a predictive model." data-ar="مشروع تعلم آلي قمت فيه ببناء وتدريب نموذج للتنبؤ وتحليل الأنماط">A machine learning project where I built and trained a predictive model.</p>
+        <div class="proj-tags">
+          <span class="pill">Python</span><span class="pill">Machine Learning</span><span class="pill">scikit-learn</span>
+        </div>
+        <div style="margin-top:10px">
+          <button class="btn" onclick="openProjectModal(this)">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3: Library Management System -->
+    <div class="card project cert" data-proj='{
+      "title":"Library Management System",
+      "title_ar":"نظام إدارة المكتبة",
+      "desc":"Built a library system with add, remove, update, and borrow/return features.",
+      "desc_ar":"بناء نظام مكتبة يتيح إضافة، حذف، تعديل وإدارة عمليات الإعارة والإرجاع.",
+      "details":"Developed a Library Management System using C++ OOP principles. Implemented book management, search by title/author/category, and borrow/return functionalities.",
+      "details_ar":"تم تطوير نظام إدارة مكتبة باستخدام مبادئ البرمجة الكائنية في C++. تنفيذ إدارة الكتب، البحث حسب العنوان/المؤلف/الفئة، ووظائف الإعارة والإرجاع.",
+      "tags":["OOP","C++"],
+      "tags_ar":["برمجة كائنية","C++"],
+      "images":["interactive digital library.jpeg"]
+    }'>
+      <img src="interactive digital library.jpeg" alt="Library Management System">
+      <div class="proj-body">
+        <h3 data-en="Library Management System" data-ar="نظام إدارة المكتبة">Library Management System</h3>
+        <p class="muted" data-en="Built a library system with add, remove, update, and borrow/return features" data-ar="بناء نظام مكتبة يتيح إضافة، حذف، تعديل وإدارة عمليات الإعارة والإرجاع">Built a library system with add, remove, update, and borrow/return features.</p>
+        <div class="proj-tags">
+          <span class="pill">OOP</span><span class="pill">C++</span>
+        </div>
+        <div class="proj-actions">
+          <button class="btn proj-details" onclick="openProjectModal(this)">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4: Digital Image Processing -->
+    <div class="card project cert" data-proj='{
+      "title":"Digital Image Processing",
+      "title_ar":"معالجة الصور الرقمية",
+      "desc":"A Python project performing all stages of image processing.",
+      "desc_ar":"مشروع بايثون يقوم بتنفيذ جميع مراحل معالجة الصور.",
+      "details":"Implemented image filtering, edge detection, color transformations and morphological operations using OpenCV.",
+      "details_ar":"تنفيذ ترشيح الصور، كشف الحواف، تحويل الألوان والعمليات المورفولوجية باستخدام OpenCV.",
+      "tags":["Python","Image Processing","OpenCV"],
+      "tags_ar":["Python","معالجة الصور","OpenCV"],
+      "images":["enn.png"]
+    }'>
+      <img src="enn.png" alt="Digital Image Processing">
+      <div class="proj-body">
+        <h3 data-en="Digital Image Processing" data-ar="معالجة الصور الرقمية">Digital Image Processing</h3>
+        <p class="muted" data-en="A Python project performing all stages of image processing." data-ar="مشروع بايثون يقوم بتنفيذ جميع مراحل معالجة الصور">A Python project performing all stages of image processing.</p>
+        <div class="proj-tags">
+          <span class="pill">Python</span><span class="pill">Image Processing</span><span class="pill">OpenCV</span>
+        </div>
+        <div class="proj-actions">
+          <button class="btn" onclick="openProjectModal(this)">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 5: Networking Topology Design -->
+    <div class="card project cert" data-proj='{
+      "title":"Networking Topology Design",
+      "title_ar":"تصميم طوبولوجيا الشبكة",
+      "desc":"Designed and implemented a full networking topology.",
+      "desc_ar":"قمت بتصميم وتنفيذ طوبولوجيا شبكة كاملة.",
+      "details":"Designed a complete network including switches, routers, VLANs, IP addressing. Configured routing protocols, verified connectivity, and applied security measures.",
+      "details_ar":"تصميم شبكة كاملة تتضمن سويتشات، راوترات، VLANs، وتخصيص عناوين IP. إعداد بروتوكولات التوجيه، فحص الاتصال، وتطبيق إجراءات الأمان.",
+      "tags":["Cisco Packet Tracer","IP Addressing","VLANs"],
+      "tags_ar":["Cisco Packet Tracer","عنواوين IP","VLANs"],
+      "images":["net.png"]
+    }'>
+      <img src="net.png" alt="Networking Topology Design">
+      <div class="proj-body">
+        <h3 data-en="Networking Topology Design" data-ar="تصميم طوبولوجيا الشبكة">Networking Topology Design</h3>
+        <p class="muted" data-en="Designed and implemented a full networking topology." data-ar="قمت بتصميم وتنفيذ طوبولوجيا شبكة كاملة">Designed and implemented a full networking topology.</p>
+        <div class="proj-tags">
+          <span class="pill">Cisco Packet Tracer</span><span class="pill">IP Addressing</span><span class="pill">VLANs</span>
+        </div>
+        <div class="proj-actions">
+          <button class="btn" onclick="openProjectModal(this)">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 6: VLAN & Inter-VLAN Routing -->
+    <div class="card project cert" data-proj='{
+      "title":"VLAN & Inter-VLAN Routing",
+      "title_ar":"VLAN والتوجيه بين الـ VLANs",
+      "desc":"Implemented multiple VLANs and enabled communication between them using Inter-VLAN Routing.",
+      "desc_ar":"قمت بإنشاء VLANs متعددة وتم تمكين الاتصال بينها باستخدام التوجيه بين VLAN.",
+      "details":"Configured VLANs for departments, enabled inter-VLAN routing with Layer 3 switch, tested connectivity and applied security rules.",
+      "details_ar":"تم إعداد VLANs للأقسام المختلفة، تفعيل التوجيه بين VLAN باستخدام سويتش Layer 3، فحص الاتصال وتطبيق قواعد الأمان.",
+      "tags":["Cisco Packet Tracer","VLANs","Layer 3 Switch"],
+      "tags_ar":["Cisco Packet Tracer","VLANs","سويتش Layer 3"],
+      "images":["img2.png"]
+    }'>
+      <img src="img2.png" alt="VLAN & Inter-VLAN Routing">
+      <div class="proj-body">
+        <h3 data-en="VLAN & Inter-VLAN Routing" data-ar="VLAN والتوجيه بين الـ VLANs">VLAN & Inter-VLAN Routing</h3>
+        <p class="muted" data-en="Implemented multiple VLANs and enabled communication between them using Inter-VLAN Routing." data-ar="قمت بإنشاء VLANs متعددة وتم تمكين الاتصال بينها باستخدام التوجيه بين VLAN">Implemented multiple VLANs and enabled communication between them using Inter-VLAN Routing.</p>
+        <div class="proj-tags">
+          <span class="pill">Cisco Packet Tracer</span><span class="pill">VLANs</span><span class="pill">Layer 3 Switch</span>
+        </div>
+        <div class="proj-actions">
+          <button class="btn" onclick="openProjectModal(this)">View Details</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Project Modal -->
+<div id="projectModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:999;">
+  <div style="position:relative; width:90%; max-width:800px; background:#1c3d6e; border-radius:8px; padding:20px;">
+    <button onclick="closeProjectModal()" style="position:absolute; top:10px; right:10px; padding:5px 10px;">X</button>
+    <h3 id="modalTitle">Project Title</h3>
+    <p id="modalDesc">Project Description</p>
+    <p id="modalDetails">Project Details</p>
+    <div id="modalTags"></div>
+    <img id="modalImg" src="" alt="" style="width:50%; margin-top:10px; border-radius:8px;">
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:999;">
+  <div style="position:relative; width:90%; max-width:800px;">
+    <button onclick="closeVideo()" style="position:absolute; top:10px; right:10px; z-index:10; padding:5px 10px;">X</button>
+    <video id="videoFrame" controls style="width:100%; border-radius:8px;">
+      <source src="" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+</div>
+
+    <!-- CERTIFICATES -->
+    <section id="certs" data-aos="fade-up">
+      <h2 data-en="Certificates" data-ar="الشهادات">Certificates</h2>
+      <div class="grid">
+        <div class="card cert" data-pdf="CCNA-_Introduction_to_Networks_certificate.pdf">
+         
+          <h3 data-en="Cisco CCNA — Introduction to Networks" data-ar="مقدمة في الشبكات ">Introduction to Networks</h3>
+          <p class="muted" data-en="Cisco — 2025" data-ar="Cisco — 2025">Cisco — 2025</p>
+          <div style="margin-top:10px"><button class="btn" onclick="openPDF(this)">View Certificate</button></div>
+        </div>
+
+        <div class="card cert" data-pdf="Introduction_to_Cybersecurity_certificate.pdf">
+          
+          <h3 data-en="Introduction to Cybersecurity" data-ar="مقدمة في الامن السيبرانى">Introduction to Cybersecurity</h3>
+          <p class="muted">Cisco — 2025</p>
+          <div style="margin-top:10px"><button class="btn" onclick="openPDF(this)">View Certificate</button></div>
+        </div>
+
+        <div class="card cert" data-pdf="downloaded.pdf">
+          
+          <h3 data-en="Microsoft x SPRINT Cybersecurity" data-ar="مايكروسوفت x سبرينت -امن سيبرانى  ">Cybersecurity learning sprint by Microsoft.</h3>
+          <p class="muted">Microsoft x SPRINT — 2025</p>
+          <div style="margin-top:10px"><button class="btn" onclick="openPDF(this)">View Certificate</button></div>
+        </div>
+<div class="card cert">
+  <h3>CIB Internship</h3>
+  <p class="muted">2024</p>
+
+  <p class="muted" style="margin-top:8px">Digital transformation & financial literacy.</p>
+  <div style="margin-top:10px">
+    <button class="btn" data-pdf= 'mm.jpeg' onclick="openPDF(this)">View</button>
+  </div>
+
+  <p class="muted" style="margin-top:8px">Financial literacy and entrepreneurial skills.</p>
+  <div style="margin-top:10px">
+    <button class="btn"data-pdf= "nn.jpeg" onclick="openPDF(this)">View</button>
+  </div>
+
+  <p class="muted" style="margin-top:8px">Human-centric interpersonal skills.</p>
+  <div style="margin-top:10px">
+    <button class="btn"data-pdf= 'dd.jpeg' onclick="openPDF(this)">View</button>
+  </div>
+</div>
+
+
+
+        <div class="card cert" >
+          
+          <h3 data-en="Fortinet Cybersecurity Engineer (DEPI)" data-ar="Fortinet Cybersecurity Engineer">Fortinet Engineer</h3>
+          <p class="muted">DEPI - 2025</p>
+          <div style="margin-top:10px"><button class="btn" disabled>In progress></button></div>
+        </div>
+
+       
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" data-aos="fade-up">
+      <h2 data-en="Achievements" data-ar="الإنجازات">Achievements</h2>
+      <div class="grid">
+        <div class="card">
+          <h3 data-en="Cybersecurity Top 3 Student " data-ar=" من الثلاثة الأوائل فى الامن السيبرانى ">Cybersecurity Hackathon</h3>
+          <p class="muted" data-en="Ranked among the top 3 in the Cybersecurity Department, Faculty of Artificial Intelligence." data-ar="  احتلت المرتبة ضمن أفضل 3 في قسم الأمن السيبرانى، كلية الذكاء الاصطناعى">Top 10 teams in network security challenge.</p>
+        </div>
+        <div class="card">
+          <h3 data-en="Projects & Practical Work" data-ar="المشاريع والعمل العملي">Cybersecurity Hackathon</h3>
+          <p class="muted" data-en="Built and delivered multiple projects in Networking, Cybersecurity & ML." data-ar=" بناء وتنفيذ مشاريع متعددة في الشبكات، الأمن السيبراني وتعلم الآلة">Top 10 teams in network security challenge.</p>
+        </div>
+        <div class="card">
+          <h3 data-en="Technical Skills & Tools" data-ar="المهارات والأدوات التقنية">Best Networking Lab</h3>
+          <p class="muted" data-en="Hands-on experience with Cisco Packet Tracer, Python & OpenCV." data-ar="    خبرة عملية في Cisco Packet Tracer، بايثون و OpenCV">University award for secure office design.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" data-aos="fade-up">
+      <h2 data-en="Timeline" data-ar="الخط الزمني">Timeline</h2>
+      <div class="card timeline">
+        <div class="timeline-item" data-aos="fade-right"><strong>2023</strong> — <span data-en="Started Bachelor's in AI (Cybersecurity Major)" data-ar="بداية بكالوريوس الذكاء الاصطناعي (تخصص الأمن السيبراني)">Started Bachelor's in AI (Cybersecurity Major)</span></div>
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="80"><strong>2024</strong> — <span data-en="CIB Internship (Cybersecurity)" data-ar="تدريب في بنك CIB (الأمن السيبراني)">CIB Internship (Cybersecurity)</span></div>
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="160"><strong>2025</strong> — <span data-en="Fortinet Cybersecurity Training (DEPI)" data-ar="تدريب Fortinet — مبادرة DEPI">Fortinet Cybersecurity Training (DEPI)</span></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" data-aos="fade-up">
+      <h2 data-en="Testimonials" data-ar="التوصيات">Testimonials</h2>
+      <div class="testimonials">
+        <div class="testimonial card" data-aos="flip-left">
+          <p data-en='"Always positive and helpful in group projects."' data-ar='"رودينا تعلمت بسرعة وادّت عمل مختبر ممتاز."'> "Rodina learned fast during the sprint and contributed solid lab work." </p>
+          <strong data-en="— Mai" data-ar="— =.مى  =">— </strong>
+        </div>
+        <div class="testimonial card" data-aos="flip-left" data-aos-delay="80">
+          <p data-en='"Rodina is reliable and dedicated to her work."' data-ar='"ردينا شخص موثوق ومتفاني في شغلها"'> "Her network designs are clear and secure." </p>
+          <strong data-en="— classmate" data-ar="—  زميل دراسة ">— </strong>
+        </div>
+        <div class="testimonial card" data-aos="flip-left" data-aos-delay="160">
+          <p data-en='"She faces every challenge with confidence and a positive spirit."' data-ar='"تتعامل مع أي تحدي بثقة وروح إيجابية."'> "Great attention to detail and documentation." </p>
+          <strong data-en="— Peer" data-ar="—  زميل">— Omar H., Peer</strong>
+        </div>
+      </div>
+    </section>
+  <!-- Contact -->
+  <section id="contact" data-aos="fade-up">
+    <h2 data-en="Contact Me" data-ar="تواصل معي">Contact Me</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="socials">
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a> |
+      <a href="https://github.com" target="_blank">GitHub</a> |
+      <a href="mailto:test@email.com">Email</a>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://www.linkedin.com/in/rodina-hesham" style="border-radius:8px" alt="qr">
+    </div>
+            
+            
+  </section>
+
+         
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div data-en="Built with ❤ — Rodina" data-ar="صنع بحب — رودينا">Built with ❤ — Rodina</div>
+      <div class="muted">© <span id="year"></span></div>
+    </footer>
+  </main>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal" id="projModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="close-x" onclick="closeProjModal()">×</button>
+      <div id="projModalContent">
+        <h3 id="modalTitle">Title</h3>
+        <p id="modalDesc" class="muted">Description</p>
+        <div id="modalDetails" style="margin-top:10px;color:var(--text)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Modal -->
+  <div class="modal" id="pdfModal" aria-hidden="true">
+    <div class="modal-card" style="padding:8px">
+      <button class="close-x" onclick="closePdfModal()">×</button>
+      <iframe id="pdfFrame" src="" style="width:100%;height:70vh;border:0;border-radius:6px"></iframe>
+    </div>
+  </div>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    // init
+    document.getElementById('year').textContent = new Date().getFullYear();
+    AOS.init({duration:900, once:true});
+
+    // THEME (persist)
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('rodina-theme');
+    if(savedTheme === 'dark') document.body.classList.add('dark');
+    themeToggle.addEventListener('click', ()=>{
+      document.body.classList.toggle('dark');
+      localStorage.setItem('rodina-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // LANGUAGE (persist) - toggles texts with data-en / data-ar
+    const langToggle = document.getElementById('langToggle');
+    let lang = localStorage.getItem('rodina-lang') || 'en';
+    setLanguage(lang);
+    langToggle.addEventListener('click', ()=> {
+      lang = (lang === 'en') ? 'ar' : 'en';
+      setLanguage(lang);
+      localStorage.setItem('rodina-lang', lang);
+    });
+
+    function setLanguage(l){
+      document.documentElement.lang = (l==='ar')? 'ar' : 'en';
+      // dir for Arabic
+      document.documentElement.dir = (l==='ar')? 'rtl' : 'ltr';
+
+      // replace text content for elements with data-en
+      document.querySelectorAll('[data-en]').forEach(el=>{
+        const text = el.getAttribute(`data-${l}`);
+        if(text !== null){
+          // for placeholders
+          if(el.hasAttribute('data-en-placeholder')) {
+            el.placeholder = el.getAttribute(`data-${l}-placeholder`);
+          }
+          // for inputs that rely on innerText vs placeholder:
+          if(el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
+            // handled via placeholder above
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+
+      // also update any placeholder attributes that were set only as data attributes
+      document.querySelectorAll('[data-en-placeholder]').forEach(el=>{
+        const ph = el.getAttribute(`data-${l}-placeholder`);
+        if(ph) el.placeholder = ph;
+      });
+    }
+
+    // COUNTERS: animate when visible
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries, obs)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target;
+          const target = +el.getAttribute('data-target');
+          const duration = 1200;
+          const start = performance.now();
+          const frame = (now)=>{
+            const progress = Math.min((now - start)/duration, 1);
+            el.textContent = Math.floor(progress * target);
+            if(progress < 1) requestAnimationFrame(frame);
+            else el.textContent = target;
+          };
+          requestAnimationFrame(frame);
+          obs.unobserve(el);
+        }
+      });
+    }, {threshold:0.6});
+    counters.forEach(c=>counterObserver.observe(c));
+
+    // PROJECT modal logic
+    function openProjectModal(button){
+    const projectCard = button.closest('.project');
+    let projData = {};
+    try { projData = JSON.parse(projectCard.getAttribute('data-proj') || '{}'); }
+    catch(e){console.warn(e);}
+    
+    document.getElementById('modalTitle').innerText = projData.title || '';
+    document.getElementById('modalDesc').innerText = projData.desc || '';
+    document.getElementById('modalDetails').innerText = projData.details || '';
+    
+    const modalTags = document.getElementById('modalTags');
+    modalTags.innerHTML = '';
+    (projData.tags || []).forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'pill';
+        span.innerText = tag;
+        modalTags.appendChild(span);
+    });
+    
+    document.getElementById('modalImg').src = (projData.images && projData.images[0]) || '';
+    document.getElementById('projectModal').style.display = 'flex';
+}
+
+function closeProjectModal() {
+    document.getElementById("projectModal").style.display = "none";
+}
+
+    // Certificates PDF modal
+    function openPDF(btn) {
+  const card = btn.closest('.cert');
+  if (!card) return;
+
+  let src = card.getAttribute('data-pdf') || btn.getAttribute('data-pdf');
+  if (!src) { 
+    alert('File not provided'); 
+    return; 
+  }
+
+  const isImage = src.match(/\.(jpeg|jpg|png|gif)$/i);
+
+  let container = card.querySelector('.pdf-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.classList.add('pdf-container');
+    container.style.marginTop = '10px';
+    container.style.position = 'relative'; // علشان زرار الإغلاق
+    card.appendChild(container);
+  }
+let lang = 'en'; // 'ar' للعرض بالعربي
+
+  function openProjectModal(btn){
+    const card = btn.closest('.card');
+    const data = JSON.parse(card.dataset.proj);
+    
+    document.getElementById('modalTitle').innerText = lang==='ar' ? data.title_ar : data.title;
+    document.getElementById('modalDesc').innerText = lang==='ar' ? data.desc_ar : data.desc;
+    document.getElementById('modalDetails').innerText = lang==='ar' ? data.details_ar : data.details;
+
+    const tagsDiv = document.getElementById('modalTags');
+    tagsDiv.innerHTML = '';
+    const tags = lang==='ar' ? data.tags_ar : data.tags;
+    tags.forEach(t => {
+      const span = document.createElement('span');
+      span.className='pill';
+      span.innerText=t;
+      tagsDiv.appendChild(span);
+    });
+
+    document.getElementById('modalImg').src = data.images[0];
+    document.getElementById('projectModal').style.display='flex';
+  }
+
+  function closeProjectModal(){
+    document.getElementById('projectModal').style.display='none';
+  }
+  container.innerHTML = ''; // نظف المحتوى القديم
+
+  // زرار الإغلاق
+  const closeBtn = document.createElement('button');
+  closeBtn.innerText = '× Close';
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '5px';
+  closeBtn.style.right = '5px';
+  closeBtn.style.padding = '5px 10px';
+  closeBtn.style.cursor = 'pointer';
+  closeBtn.onclick = () => container.innerHTML = '';
+  container.appendChild(closeBtn);
+
+  if (isImage) {
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.width = '100%';
+    img.style.maxHeight = '400px';
+    img.style.objectFit = 'contain';
+    container.appendChild(img);
+  } else {
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.style.width = '100%';
+    iframe.style.height = '400px';
+    container.appendChild(iframe);
+  }
+}
+
+ function openVideo(btn){
+    const card = btn.closest('.card');
+    const data = JSON.parse(card.dataset.proj);
+    if(!data.video) return alert('No video available');
+    document.getElementById('videoFrame').src = data.video;
+    document.getElementById('videoModal').style.display='flex';
+  }
+
+  function closeVideo(){
+    document.getElementById('videoModal').style.display='none';
+    document.getElementById('videoFrame').pause();
+    document.getElementById('videoFrame').src='';
+  }
+    function closePdfModal(){ document.getElementById('pdfFrame').src=''; document.getElementById('pdfModal').style.display='none'; document.getElementById('pdfModal').setAttribute('aria-hidden','true'); }
+
+    // close modals on ESC or click outside
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeProjModal(); closePdfModal(); }});
+    document.querySelectorAll('.modal').forEach(m=>{
+      m.addEventListener('click', (ev)=>{ if(ev.target === m) { closeProjModal(); closePdfModal(); } });
+    });
+// اغلاق المودال لما يضغط على الخلفية
+window.addEventListener("click", function(event) {
+    var modal = document.getElementById("projectModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+});
+document.querySelectorAll('nav a').forEach(link=>{
+  link.addEventListener('click', (e)=>{
+    e.preventDefault();
+    document.querySelector(link.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+  });
+});
+
+    // contact form (simple mailto)
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim() || 'Portfolio Contact';
+      const message = document.getElementById('message').value.trim();
+      if(!name || !email || !message){ alert(lang === 'ar' ? 'من فضلك املئي الحقول' : 'Please fill required fields'); return; }
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      window.location.href = `mailto:rodinahesham129@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    });
+
+    // download CV
+    document.getElementById('downloadCvBtn').addEventListener('click', ()=> window.open('cv.pdf','_blank'));
+
+    // ensure placeholder fallback if images missing
+    document.querySelectorAll('img').forEach(img=>{
+      img.addEventListener('error', ()=>{ img.src = 'placeholder.png'; });
+    });
+
+    // set initial language UI text for nav links (in case needed)
+    // already handled by setLanguage at load above via localStorage call
+
+  </script>
+</body>
+</html>
